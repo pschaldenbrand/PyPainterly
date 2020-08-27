@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 
-#import matplotlib.pyplot as plt
-
 MAX_ITERATIONS = 100
 
 def normal_x(x, width):
@@ -232,9 +230,7 @@ def paint_layer(canvas, reference_image, r, f_g, T, curved):
                     s = 1 - make_stroke(r/width*2, x/width, x1/width, y/height, y1/height, width, height)
                 color = reference_image[x,y,:] / 255.
                 canvas = apply_stroke(canvas, s, color)
-        
-    # plt.imshow(canvas)
-    # plt.show()
+
     return canvas
 
 def paint(source_image, R, T=100, curved=True, f_g=1):
