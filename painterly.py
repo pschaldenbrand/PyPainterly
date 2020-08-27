@@ -285,7 +285,7 @@ if __name__ == "__main__":
     parser.add_argument('--r', nargs='+', type=int, default=[8,4,2], help='radii to use for brushes. Usage --r 8 4 2')
     parser.add_argument('--output', type=str, default='./output.jpg', help='output file name and path')
     parser.add_argument('--T', type=float, default=100., help='Approximation threshold - how close the painting should be to target')
-    parser.add_argument('--curved', action='store_true', default=True, help='Use curved or straight brush strokes. Default True.')
+    parser.add_argument('--straight', action='store_true', default=False, help='Use straight brush strokes. Default False=curved strokes.')
     parser.add_argument('--f_g', type=float, default=1., help='Grid size - controls spacing of brush strokes')
 
     args = parser.parse_args()
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     img = cv2.imread(args.img, cv2.IMREAD_COLOR)[:,:,::-1]
     img, original_width, original_height = resize_img(img)
 
-    painting = paint(img, args.r, T=args.T, curved=args.curved, f_g=args.f_g) * 255.
+    painting = paint(img, args.r, T=args.T, curved=not args.curved, f_g=args.f_g) * 255.
 
     painting = cv2.resize(painting, (original_width, original_height))
     cv2.imwrite(args.output, painting[:,:,::-1])
